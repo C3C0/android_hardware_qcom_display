@@ -185,9 +185,9 @@ bool isGPUSupportedFormat(int format);
  *           GL_TEXTURE_EXTERNAL_OES for YUV formats.
  *
 */
-#endif
 
 int decideTextureTarget (const int pixel_format);
+#endif
 
 /*
  * Gets the number of arguments required for this operation.

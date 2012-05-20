@@ -26,7 +26,7 @@ LOCAL_C_INCLUDES := $(TOP)/hardware/qcom/display/libgralloc \
                     $(TOP)/external/skia/include/core \
                     $(TOP)/external/skia/include/images
 
-LOCAL_CFLAGS := -DLOG_TAG=\"libQcomUI\"
+LOCAL_CFLAGS += -DLOG_TAG=\"libQcomUI\"
 
 ifneq ($(BOARD_USES_QCOM_HARDWARE),true)
     LOCAL_CFLAGS += -DNON_QCOM_TARGET

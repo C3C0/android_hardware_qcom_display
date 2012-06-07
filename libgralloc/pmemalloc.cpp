@@ -117,13 +117,13 @@ PmemUserspaceAlloc::~PmemUserspaceAlloc()
 
 int PmemUserspaceAlloc::init_pmem_area_locked()
 {
-    LOGD("%s: Opening master pmem FD", __FUNCTION__);
+    LOGV("%s: Opening master pmem FD", __FUNCTION__);
     int err = 0;
     int fd = open(mPmemDev, O_RDWR, 0);
     if (fd >= 0) {
         size_t size = 0;
         err = getPmemTotalSize(fd, &size);
-        LOGD("%s: Total pmem size: %d", __FUNCTION__, size);
+        LOGV("%s: Total pmem size: %d", __FUNCTION__, size);
         if (err < 0) {
             LOGE("%s: PMEM_GET_TOTAL_SIZE failed (%d), limp mode", mPmemDev,
                     err);
@@ -158,7 +158,7 @@ int  PmemUserspaceAlloc::init_pmem_area()
     int err = mMasterFd;
     if (err == FD_INIT) {
         // first time, try to initialize pmem
-        LOGD("%s: Initializing pmem area", __FUNCTION__);
+        LOGV("%s: Initializing pmem area", __FUNCTION__);
         err = init_pmem_area_locked();
         if (err) {
             LOGE("%s: failed to initialize pmem area", mPmemDev);
@@ -208,10 +208,11 @@ int PmemUserspaceAlloc::alloc_buffer(alloc_data& data)
                 mAllocator->deallocate(offset);
                 fd = -1;
             } else {
-		/*
+
+    		/*
                 LOGD("%s: Allocated buffer base:%p size:%d offset:%d fd:%d",
                         mPmemDev, base, size, offset, fd);
-		*/
+    		*/
                 memset((char*)base + offset, 0, size);
                 //Clean cache before flushing to ensure pmem is properly flushed
                 err = clean_buffer((void*)((intptr_t) base + offset), size, offset, fd);
